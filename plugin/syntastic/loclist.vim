@@ -3,6 +3,8 @@ if exists("g:loaded_syntastic_loclist")
 endif
 let g:loaded_syntastic_loclist = 1
 
+echomsg 'loclist.vim start: ' . string(g:syntastic_php_checkers)
+
 let g:SyntasticLoclist = {}
 
 " Public methods {{{1

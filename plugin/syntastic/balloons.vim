@@ -3,6 +3,8 @@ if exists("g:loaded_syntastic_notifier_balloons")
 endif
 let g:loaded_syntastic_notifier_balloons = 1
 
+echomsg 'balloons.vim start: ' . string(g:syntastic_php_checkers)
+
 if !exists("g:syntastic_enable_balloons")
     let g:syntastic_enable_balloons = 1
 endif

@@ -3,6 +3,8 @@ if exists("g:loaded_syntastic_makeprg_builder")
 endif
 let g:loaded_syntastic_makeprg_builder = 1
 
+echomsg 'makeprg_builder.vim start: ' . string(g:syntastic_php_checkers)
+
 let g:SyntasticMakeprgBuilder = {}
 
 " Public methods {{{1

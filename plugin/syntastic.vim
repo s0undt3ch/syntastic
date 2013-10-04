@@ -16,6 +16,8 @@ if exists("g:loaded_syntastic_plugin")
 endif
 let g:loaded_syntastic_plugin = 1
 
+echomsg 'syntastic.vim start: ' . string(g:syntastic_php_checkers)
+
 runtime! plugin/syntastic/*.vim
 
 let s:running_windows = has("win16") || has("win32")
@@ -145,6 +147,8 @@ endfunction
 
 "refresh and redraw all the error info for this buf when saving or reading
 function! s:UpdateErrors(auto_invoked, ...)
+    echomsg '* UpdateErrors(): ' . string(g:syntastic_php_checkers)
+
     if s:SkipFile()
         return
     endif
@@ -184,6 +188,8 @@ endfunction
 
 "detect and cache all syntax errors in this buffer
 function! s:CacheErrors(...)
+    echomsg '* CacheErrors(): ' . string(g:syntastic_php_checkers)
+
     call s:ClearCache()
     let newLoclist = g:SyntasticLoclist.New([])
 
@@ -197,6 +203,7 @@ function! s:CacheErrors(...)
         endif
 
         for ft in s:CurrentFiletypes()
+            echomsg '** ft = ' . ft
             if a:0
                 let checker = s:registry.getChecker(ft, a:1)
                 let checkers = !empty(checker) ? [checker] : []
@@ -311,6 +318,8 @@ endfunction
 "
 "return '' if no errors are cached for the buffer
 function! SyntasticStatuslineFlag()
+    echomsg '* SyntasticStatuslineFlag(): ' . string(g:syntastic_php_checkers)
+
     let loclist = g:SyntasticLoclist.current()
     let issues = loclist.filteredRaw()
     let num_issues = loclist.getLength()

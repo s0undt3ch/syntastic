@@ -3,6 +3,8 @@ if exists("g:loaded_syntastic_notifiers")
 endif
 let g:loaded_syntastic_notifiers = 1
 
+echomsg 'notifiers.vim start: ' . string(g:syntastic_php_checkers)
+
 let g:SyntasticNotifiers = {}
 
 let s:notifier_types = ['signs', 'balloons', 'highlighting', 'cursor', 'autoloclist']

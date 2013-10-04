@@ -3,6 +3,8 @@ if exists("g:loaded_syntastic_notifier_autoloclist")
 endif
 let g:loaded_syntastic_notifier_autoloclist = 1
 
+echomsg 'autoloclist.vim start: ' . string(g:syntastic_php_checkers)
+
 if !exists("g:syntastic_auto_loc_list")
     let g:syntastic_auto_loc_list = 2
 endif
