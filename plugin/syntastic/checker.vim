@@ -3,8 +3,6 @@ if exists("g:loaded_syntastic_checker")
 endif
 let g:loaded_syntastic_checker = 1
 
-echomsg 'checker.vim start: ' . string(g:syntastic_php_checkers)
-
 let g:SyntasticChecker = {}
 
 " Public methods {{{1

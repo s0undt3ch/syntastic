@@ -3,8 +3,6 @@ if exists("g:loaded_syntastic_notifier_cursor")
 endif
 let g:loaded_syntastic_notifier_cursor = 1
 
-echomsg 'cursor.vim start: ' . string(g:syntastic_php_checkers)
-
 if !exists('g:syntastic_echo_current_error')
     let g:syntastic_echo_current_error = 1
 endif

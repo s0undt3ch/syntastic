@@ -3,8 +3,6 @@ if exists("g:loaded_syntastic_modemap")
 endif
 let g:loaded_syntastic_modemap = 1
 
-echomsg 'modemap.vim start: ' . string(g:syntastic_php_checkers)
-
 let g:SyntasticModeMap = {}
 
 " Public methods {{{1

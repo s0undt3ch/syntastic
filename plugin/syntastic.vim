@@ -20,6 +20,8 @@ echomsg 'syntastic.vim start: ' . string(g:syntastic_php_checkers)
 
 runtime! plugin/syntastic/*.vim
 
+echomsg '* after loading scripts: ' . string(g:syntastic_php_checkers)
+
 let s:running_windows = has("win16") || has("win32")
 
 if !s:running_windows && executable('uname')
@@ -81,9 +83,13 @@ if !exists("g:syntastic_reuse_loc_lists")
     let g:syntastic_reuse_loc_lists = (v:version >= 704)
 endif
 
+echomsg '* after init: ' . string(g:syntastic_php_checkers)
+
 let s:registry = g:SyntasticRegistry.Instance()
 let s:notifiers = g:SyntasticNotifiers.Instance()
 let s:modemap = g:SyntasticModeMap.Instance()
+
+echomsg '* after constructors: ' . string(g:syntastic_php_checkers)
 
 function! s:CompleteCheckerName(argLead, cmdLine, cursorPos)
     let checker_names = []
@@ -121,6 +127,8 @@ if v:version > 703 || (v:version == 703 && has('patch544'))
         autocmd QuitPre * call s:QuitPreHook()
     augroup END
 endif
+
+echomsg '* after autocmds: ' . string(g:syntastic_php_checkers)
 
 
 function! s:BufWinEnterHook()
@@ -203,7 +211,6 @@ function! s:CacheErrors(...)
         endif
 
         for ft in s:CurrentFiletypes()
-            echomsg '** ft = ' . ft
             if a:0
                 let checker = s:registry.getChecker(ft, a:1)
                 let checkers = !empty(checker) ? [checker] : []

@@ -3,8 +3,6 @@ if exists("g:loaded_syntastic_notifier_signs")
 endif
 let g:loaded_syntastic_notifier_signs = 1
 
-echomsg 'signs.vim start: ' . string(g:syntastic_php_checkers)
-
 if !exists("g:syntastic_enable_signs")
     let g:syntastic_enable_signs = 1
 endif

@@ -3,8 +3,6 @@ if exists("g:loaded_syntastic_registry")
 endif
 let g:loaded_syntastic_registry = 1
 
-echomsg 'registry.vim start: ' . string(g:syntastic_php_checkers)
-
 let s:defaultCheckers = {
         \ 'c':          ['gcc'],
         \ 'coffee':     ['coffee', 'coffeelint'],
@@ -72,8 +70,6 @@ function! g:SyntasticRegistry.checkable(ftalias)
 endfunction
 
 function! g:SyntasticRegistry.getActiveCheckers(ftalias)
-    echomsg '* getActiveCheckers(' . a:ftalias . '): ' . string(g:syntastic_php_checkers)
-
     let filetype = s:SyntasticRegistryNormaliseFiletype(a:ftalias)
     let checkers = self.availableCheckersFor(a:ftalias)
 
