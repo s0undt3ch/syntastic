@@ -16,11 +16,7 @@ if exists("g:loaded_syntastic_plugin")
 endif
 let g:loaded_syntastic_plugin = 1
 
-echomsg 'syntastic.vim start: ' . string(g:syntastic_php_checkers)
-
 runtime! plugin/syntastic/*.vim
-
-echomsg '* after loading scripts: ' . string(g:syntastic_php_checkers)
 
 let s:running_windows = has("win16") || has("win32")
 
@@ -83,13 +79,9 @@ if !exists("g:syntastic_reuse_loc_lists")
     let g:syntastic_reuse_loc_lists = (v:version >= 704)
 endif
 
-echomsg '* after init: ' . string(g:syntastic_php_checkers)
-
 let s:registry = g:SyntasticRegistry.Instance()
 let s:notifiers = g:SyntasticNotifiers.Instance()
 let s:modemap = g:SyntasticModeMap.Instance()
-
-echomsg '* after constructors: ' . string(g:syntastic_php_checkers)
 
 function! s:CompleteCheckerName(argLead, cmdLine, cursorPos)
     let checker_names = []
@@ -109,6 +101,8 @@ command! SyntasticReset call s:ClearCache() | call s:notifiers.refresh(g:Syntast
 
 highlight link SyntasticError SpellBad
 highlight link SyntasticWarning SpellCap
+
+echomsg '* before autocmds: ' . string(g:syntastic_php_checkers)
 
 augroup syntastic
     autocmd BufReadPost * if g:syntastic_check_on_open | call s:UpdateErrors(1) | endif
@@ -132,30 +126,36 @@ echomsg '* after autocmds: ' . string(g:syntastic_php_checkers)
 
 
 function! s:BufWinEnterHook()
+    echomsg '** BufWinEnterHook() start: ' . string(g:syntastic_php_checkers)
     if empty(&bt)
         let loclist = g:SyntasticLoclist.current()
         call s:notifiers.refresh(loclist)
     endif
+    echomsg '** BufWinEnterHook() end: ' . string(g:syntastic_php_checkers)
 endfunction
 
 function! s:BufEnterHook()
+    echomsg '** BufEnterHook() start: ' . string(g:syntastic_php_checkers)
     " TODO: at this point there is no b:syntastic_loclist
     let loclist = filter(getloclist(0), 'v:val["valid"] == 1')
     let buffers = syntastic#util#unique(map( loclist, 'v:val["bufnr"]' ))
     if &bt=='quickfix' && !empty(loclist) && empty(filter( buffers, 'syntastic#util#bufIsActive(v:val)' ))
         call g:SyntasticLoclistHide()
     endif
+    echomsg '** BufEnterHook() end: ' . string(g:syntastic_php_checkers)
 endfunction
 
 
 function! s:QuitPreHook()
+    echomsg '** QuitPreHook() start: ' . string(g:syntastic_php_checkers)
     let b:syntastic_skip_checks = !g:syntastic_check_on_wq
     call g:SyntasticLoclistHide()
+    echomsg '** QuitPreHook() end: ' . string(g:syntastic_php_checkers)
 endfunction
 
 "refresh and redraw all the error info for this buf when saving or reading
 function! s:UpdateErrors(auto_invoked, ...)
-    echomsg '* UpdateErrors(): ' . string(g:syntastic_php_checkers)
+    echomsg '** UpdateErrors(' . (a:0 > 0 ? a:1 : '') . ') start: ' . string(g:syntastic_php_checkers)
 
     if s:SkipFile()
         return
@@ -182,6 +182,7 @@ function! s:UpdateErrors(auto_invoked, ...)
     endif
 
     call s:notifiers.refresh(loclist)
+    echomsg '** UpdateErrors(' . (a:0 > 0 ? a:1 : '') . ') end: ' . string(g:syntastic_php_checkers)
 endfunction
 
 "clear the loc list for the buffer
@@ -196,8 +197,6 @@ endfunction
 
 "detect and cache all syntax errors in this buffer
 function! s:CacheErrors(...)
-    echomsg '* CacheErrors(): ' . string(g:syntastic_php_checkers)
-
     call s:ClearCache()
     let newLoclist = g:SyntasticLoclist.New([])
 
